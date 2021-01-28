@@ -5,19 +5,41 @@ import java.awt.image.BufferedImage;
 public class Enemy {
     private int health = 2;
     private int x, y;
-    private int yVelocity, xVelocity;
+    private int yVelocity = 0, xVelocity = 0;
     private char direction = 'w';
 
     private int amTime = 0, timeAm = 40;
     private BufferedImage[][] enemySprites = Assets.darksoildersprite;
 
-    public void update() {
+    public void update(Player player) {
         if (amTime > timeAm) {
+            calculateNextMove(player);
             move();
             amTime = 0;
         } else {
             amTime++;
         }
+    }
+
+    public void calculateNextMove(Player player) {
+        if (x == player.getX()) {
+            if (y == player.getY()) {
+                setEDirection(-1);
+            }
+            if (y > player.getY()) {
+                setEDirection(1);
+            }
+            if (y < player.getY()) {
+                setEDirection(0);
+            }
+        } else {
+            if (x > player.getX()) {
+                setEDirection(3);
+            } else {
+                setEDirection(2);
+            }
+        }
+
     }
 
     public void render(Graphics g) {
@@ -44,7 +66,6 @@ public class Enemy {
     public Enemy() {
         x = (int) (Math.random() * LegendOfZelda.WIDTH / 64);
         y = 0;
-        setEDirection(3);
     }
 
     public void setEDirection(int eDirect) {
@@ -60,10 +81,13 @@ public class Enemy {
             yVelocity = 0;
             xVelocity = 1;
             direction = 'd';
-        } else {
+        } else if (eDirect == 3) {
             yVelocity = 0;
             xVelocity = -1;
             direction = 'a';
+        } else {
+            yVelocity = 0;
+            xVelocity = 0;
         }
     }
 

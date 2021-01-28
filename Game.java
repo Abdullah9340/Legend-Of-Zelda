@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
@@ -60,7 +61,7 @@ public class Game implements Runnable, KeyListener {
         // object 4(tree)
         objects[3][0] = 0;
         objects[3][1] = 2;
-        // object 5(girl)
+        // object 5(NPC)
         objects[4][0] = 0;
         objects[4][1] = 3;
     }
@@ -68,9 +69,8 @@ public class Game implements Runnable, KeyListener {
     public void update() {
         player.update();
         for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).update();
+            enemies.get(i).update(player);
         }
-
         if (enemies.size() == 0) {
             enemies.add(new Enemy());
             enemies.add(new Enemy());
@@ -88,6 +88,11 @@ public class Game implements Runnable, KeyListener {
             }
         }
         checkCollision();
+    }
+
+    public void GameOver(Graphics g) {
+        g.setColor(Color.red);
+        g.setFont(new Font("Ink Free", Font.BOLD, 75));
     }
 
     public void render() {
@@ -120,7 +125,7 @@ public class Game implements Runnable, KeyListener {
         }
         g.drawImage(Assets.tree, 0, 0, 64, 64, null);
         g.drawImage(Assets.tree, 0, 2 * 64, 64, 64, null);
-        ;
+
         g.drawImage(Assets.stone, 0, 1 * 64, 64, 64, null);
         g.drawImage(npcStance, 0, 3 * 64, 64, 64, null);
     }
