@@ -54,9 +54,6 @@ public class Game implements Runnable, KeyListener {
         // object 1(tree)
         objects[0][0] = 0;
         objects[0][1] = 0;
-        // object 2(tree)
-        objects[1][0] = 1;
-        objects[1][1] = 1;
         // object 3(rock)
         objects[2][0] = 0;
         objects[2][1] = 1;
@@ -123,7 +120,7 @@ public class Game implements Runnable, KeyListener {
         }
         g.drawImage(Assets.tree, 0, 0, 64, 64, null);
         g.drawImage(Assets.tree, 0, 2 * 64, 64, 64, null);
-        g.drawImage(Assets.tree, 1 * 64, 1 * 64, 64, 64, null);
+        ;
         g.drawImage(Assets.stone, 0, 1 * 64, 64, 64, null);
         g.drawImage(npcStance, 0, 3 * 64, 64, 64, null);
     }
@@ -256,8 +253,10 @@ public class Game implements Runnable, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (player.getX() == 1 && player.getY() == 3 && player.getDirection() == 'a') {
                 player.setHealth(player.getMaxHealth());
+                npcStance = Assets.npcright;
             } else if (player.getX() == 0 && player.getY() == 4 && player.getDirection() == 'w') {
                 player.setHealth(player.getMaxHealth());
+                npcStance = Assets.npcdown;
             }
         }
     }
