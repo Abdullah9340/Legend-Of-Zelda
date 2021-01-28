@@ -6,6 +6,7 @@ public class Assets {
 
     public static BufferedImage dirt, grass, stone, tree, npcright, npcdown, fillheart, emptyheart;
 
+    public static BufferedImage kniferight, knifeleft, knifeup, knifedown, knifeangle;
     public static BufferedImage[][] player = new BufferedImage[4][3];
 
     public static BufferedImage[][] darksoildersprite = new BufferedImage[4][5];
@@ -19,6 +20,12 @@ public class Assets {
 
         fillheart = ImageLoader.loadImage("heart.png");
         emptyheart = ImageLoader.loadImage("emptyheart.png");
+
+        kniferight = ImageLoader.loadImage("kniferight.png");
+        knifeleft = ImageLoader.loadImage("knifeleft.png");
+        knifedown = ImageLoader.loadImage("knifedown.png");
+        knifeup = ImageLoader.loadImage("knifeup.png");
+        knifeangle = ImageLoader.loadImage("knifeangle.png");
 
         grass = sheet.crop(0, height * 3, width, height);
         tree = sheet.crop(0, 0, width, height);

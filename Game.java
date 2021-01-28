@@ -25,7 +25,7 @@ public class Game implements Runnable, KeyListener {
     private ArrayList<Enemy> enemies;
 
     private int objects[][];
-    private ArrayList<Arrow> projectiles;
+    private ArrayList<Projectiles> projectiles;
 
     private BufferedImage npcStance;
 
@@ -48,7 +48,7 @@ public class Game implements Runnable, KeyListener {
         player = new Player();
         enemies = new ArrayList<Enemy>();
         enemies.add(new Enemy());
-        projectiles = new ArrayList<Arrow>();
+        projectiles = new ArrayList<Projectiles>();
         display.getJFrame().addKeyListener(player);
         display.getJFrame().addKeyListener(this);
         objects = new int[5][2];
@@ -110,7 +110,7 @@ public class Game implements Runnable, KeyListener {
     public void GameOver(Graphics g) {
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
-        g.drawString("Game Over", 250, HEIGHT / 2);
+        g.drawString("Game Over", WIDTH / 2 / 2, HEIGHT / 2);
     }
 
     public void BackGroundGO(Graphics g) {
@@ -282,7 +282,7 @@ public class Game implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == 'q') {
             if (projectiles.size() < player.getMaxArrows()) {
-                projectiles.add(new Arrow(player));
+                projectiles.add(new Projectiles(player));
             }
         }
 
@@ -305,7 +305,7 @@ public class Game implements Runnable, KeyListener {
     public void keyReleased(KeyEvent e) {
     }
 
-    public ArrayList<Arrow> getProjectiles() {
+    public ArrayList<Projectiles> getProjectiles() {
         return projectiles;
     }
 }

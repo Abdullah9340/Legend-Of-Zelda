@@ -72,6 +72,7 @@ public class Player implements KeyListener {
             g.setColor(Color.black);
             g.drawRect(300 + (i * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         }
+
     }
 
     public void keyTyped(KeyEvent e) {

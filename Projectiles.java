@@ -1,13 +1,19 @@
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-public class Arrow {
+public class Projectiles {
 
     private int x, y;
     private int xVelocity, yVelocity;
     private int amTime = 0, timeAm = 3;
     private char direction;
 
-    public Arrow(Player player) {
+    private BufferedImage invImage = Assets.knifeangle;
+
+    private BufferedImage up = Assets.knifeup, down = Assets.knifedown, left = Assets.knifeleft,
+            right = Assets.kniferight;
+
+    public Projectiles(Player player) {
         if (player.getDirection() == 'w') {
             yVelocity = -1;
             xVelocity = 0;
@@ -38,10 +44,15 @@ public class Arrow {
     }
 
     public void render(Graphics g) {
-        if (direction == 'w' || direction == 's') {
-            g.fillRect(x * 64 + 24, y * 64 + 16, 16, 32);
+        if (direction == 'w') {
+            g.drawImage(up, x * 64 + 24, y * 64 + 16, 16, 32, null);
+        } else if (direction == 's') {
+            g.drawImage(down, x * 64 + 24, y * 64 + 16, 16, 32, null);
+
+        } else if (direction == 'a') {
+            g.drawImage(left, x * 64 + 16, y * 64 + 24, 32, 16, null);
         } else {
-            g.fillRect(x * 64 + 16, y * 64 + 24, 32, 16);
+            g.drawImage(right, x * 64 + 16, y * 64 + 24, 32, 16, null);
         }
     }
 
