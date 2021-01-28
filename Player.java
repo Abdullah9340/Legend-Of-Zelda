@@ -2,6 +2,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.awt.*;
 
 public class Player implements KeyListener {
     private int maxHealth = 10, health = 10;
@@ -52,6 +53,8 @@ public class Player implements KeyListener {
                 g.drawImage(Assets.emptyheart, i * 20, 0, 32, 32, null);
             }
         }
+
+        drawInv(g);
     }
 
     public void update() {
@@ -62,6 +65,13 @@ public class Player implements KeyListener {
             amTime++;
         }
 
+    }
+
+    public void drawInv(Graphics g) {
+        for (int i = 0; i < 5; i++) {
+            g.setColor(Color.black);
+            g.drawRect(300 + (i * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        }
     }
 
     public void keyTyped(KeyEvent e) {

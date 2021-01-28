@@ -1,5 +1,6 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
@@ -27,6 +28,8 @@ public class Game implements Runnable, KeyListener {
     private ArrayList<Arrow> projectiles;
 
     private BufferedImage npcStance;
+
+    private boolean isDead = false;
 
     public Game(String title, int width, int height) {
         this.title = title;
@@ -67,32 +70,41 @@ public class Game implements Runnable, KeyListener {
     }
 
     public void update() {
-        player.update();
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).update(player);
-        }
-        if (enemies.size() == 0) {
-            enemies.add(new Enemy());
-            enemies.add(new Enemy());
-        }
+        if (!isDead) {
+            player.update();
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies.get(i).update(player);
+            }
+            if (enemies.size() == 0) {
+                enemies.add(new Enemy());
+                enemies.add(new Enemy());
+            }
 
-        for (int i = projectiles.size() - 1; i >= 0; i--) {
-            if (projectiles.size() == 0) {
-                break;
+            for (int i = projectiles.size() - 1; i >= 0; i--) {
+                if (projectiles.size() == 0) {
+                    break;
+                }
+                projectiles.get(i).update();
+                if (projectiles.get(i).getX() > WIDTH / 64 || projectiles.get(i).getX() < -1) {
+                    projectiles.remove(i);
+                } else if (projectiles.get(i).getY() > HEIGHT / 64 || projectiles.get(i).getY() < -1) {
+                    projectiles.remove(i);
+                }
             }
-            projectiles.get(i).update();
-            if (projectiles.get(i).getX() > WIDTH / 64 || projectiles.get(i).getX() < -1) {
-                projectiles.remove(i);
-            } else if (projectiles.get(i).getY() > HEIGHT / 64 || projectiles.get(i).getY() < -1) {
-                projectiles.remove(i);
+            if (player.getHealth() == 0) {
+                isDead = true;
             }
+            checkCollision();
+        } else {
+
         }
-        checkCollision();
     }
 
     public void GameOver(Graphics g) {
         g.setColor(Color.red);
+        g.clearRect(0, 0, WIDTH, HEIGHT);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
+        g.drawString("Game Over", 250, HEIGHT / 2);
     }
 
     public void render() {
@@ -104,14 +116,18 @@ public class Game implements Runnable, KeyListener {
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
         // Draw
-        drawBackground(g);
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).render(g);
+        if (!isDead) {
+            drawBackground(g);
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies.get(i).render(g);
+            }
+            for (int i = 0; i < projectiles.size(); i++) {
+                projectiles.get(i).render(g);
+            }
+            player.render(g);
+        } else {
+            GameOver(g);
         }
-        for (int i = 0; i < projectiles.size(); i++) {
-            projectiles.get(i).render(g);
-        }
-        player.render(g);
         // End Draw
         bs.show();
         g.dispose();
