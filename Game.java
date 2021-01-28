@@ -12,7 +12,8 @@ public class Game implements Runnable, KeyListener {
     private int round = 1;
     private Display display;
     private boolean running = false;
-    private int selectedWeapon = 2;
+    private int selectedWeapon = 1;
+    private boolean won = false;
 
     // Variables for graphics objects
     private Graphics g;
@@ -109,7 +110,9 @@ public class Game implements Runnable, KeyListener {
     * update the controls within the game
     */
     public void update() {
-        if (!isDead) { // Only run if the player is not dead
+        if (won) {
+
+        } else if (!isDead) { // Only run if the player is not dead
             player.update(); // Update the player
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).update(player); // Call each enemies update method
@@ -120,7 +123,7 @@ public class Game implements Runnable, KeyListener {
                 if (roundAm == 300) {
                     round++;
                     if (round == 10) {
-
+                        won = true;
                     }
                     for (int i = 0; i < round; i++) {
                         enemies.add(new Enemy());
@@ -149,8 +152,6 @@ public class Game implements Runnable, KeyListener {
                 isDead = true;
             }
             checkCollision(); // Check for collisions
-        } else {
-
         }
     }
 
@@ -160,7 +161,7 @@ public class Game implements Runnable, KeyListener {
     * Pre: None
     * Post: Displays a game over screen
     */
-    public void GameOver(Graphics g) {
+    public void gameOver(Graphics g) {
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
         g.drawString("Game Over", WIDTH / 2 / 2, HEIGHT / 2 - 50);
@@ -168,7 +169,7 @@ public class Game implements Runnable, KeyListener {
         g.drawString("You Died", WIDTH / 2 / 2 + 65, HEIGHT - 200);
         String finalRound = "You have reached round: " + round;
         g.setFont(new Font("Ink Free", Font.BOLD, 45));
-        g.drawString(finalRound, WIDTH / 2 / 2 - 100, HEIGHT - 100);
+        g.drawString(finalRound, WIDTH / 2 / 2 - 90, HEIGHT - 100);
     }
 
     /*-
@@ -176,15 +177,18 @@ public class Game implements Runnable, KeyListener {
         pre: none
         post: draws the gameover background
     */
-    public void BackGroundGO(Graphics g) {
+    public void backGroundGO(Graphics g) {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
     }
 
-    public void GameWin(Graphics g) {
+    public void gameWin(Graphics g) {
         g.setColor(Color.red);
         g.setFont(new Font(" Ink Free ", Font.BOLD, 75));
-        // g.drawString("YOU WON!", WIDTH / 2 / 2, HEIGHT / 2 - 50);
+        g.drawString("YOU WON!", WIDTH / 2 / 2, HEIGHT / 2 - 50);
+        String finalRound = "You Beat The Game Round: ";
+        g.setFont(new Font("Ink Free", Font.BOLD, 45));
+        g.drawString(finalRound, WIDTH / 2 / 2 - 90, HEIGHT - 100);
     }
 
     /*-
@@ -202,7 +206,10 @@ public class Game implements Runnable, KeyListener {
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT); // Clear the background
         // Draw
-        if (!isDead) { // If the player is not dead
+        if (won) {
+            backGroundGO(g);
+            gameWin(g);
+        } else if (!isDead) { // If the player is not dead
             drawBackground(g);// Draw the background
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).render(g); // Render each enemy
@@ -211,13 +218,26 @@ public class Game implements Runnable, KeyListener {
                 projectiles.get(i).render(g); // Render each projectile
             }
             player.render(g, selectedWeapon); // Render the player
+            drawRound(g);
         } else { // If the player is dead
-            BackGroundGO(g);
-            GameOver(g);
+            backGroundGO(g);
+            gameOver(g);
         }
         // End Draw
         bs.show();
         g.dispose();
+    }
+
+    /*-
+        Method: drawRound()
+        pre: none
+        post: shows the current round number on the screen
+    */
+    public void drawRound(Graphics g) {
+        g.setColor(Color.black);
+        g.setFont(new Font(" Ink Free ", Font.BOLD, 20));
+        String roundNumber = "Round: " + round;
+        g.drawString(roundNumber, WIDTH - 100, 30);
     }
 
     /*-
@@ -253,7 +273,8 @@ public class Game implements Runnable, KeyListener {
     public void checkCollision() {
         for (int i = projectiles.size() - 1; i >= 0; i--) {
             for (int j = enemies.size() - 1; j >= 0; j--) {
-                if (projectiles.size() != 0) { // If the projectiles are not empty
+                if (projectiles.size() != 0) {
+                    // If the projectiles are not empty
                     // If the projectiles hits and enemy, remove the projectile and lower enemy
                     // health
                     if (projectiles.get(i).getX() == enemies.get(j).getX()
@@ -425,21 +446,53 @@ public class Game implements Runnable, KeyListener {
      * gets shot
      */
     public void keyTyped(KeyEvent e) {
+        // user presses q to shoot a projectile
         if (e.getKeyChar() == 'q') {
             if (projectiles.size() < player.getMaxArrows()) {
+                // user selects the weapon
+                // if user selects 1
+                // inventory slot weapon 1 is used
                 if (selectedWeapon == 1) {
                     projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan,
                             Assets.rasegan, 32, 32, 32, 32));
+                    // if user selects 2
+                    // inventory slot weapon 2 is used
                 } else if (selectedWeapon == 2) {
                     projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
                             Assets.knifeleft, 16, 32, 32, 16));
+                    // if user selects 3
+                    // inventory slot weapon 3 is used
+                } else if (selectedWeapon == 3) {
+                    projectiles.add(new Projectiles(player, Assets.bullet, Assets.bullet, Assets.bullet, Assets.bullet,
+                            32, 32, 32, 32));
+                    // if user selects 4
+                    // inventory slot weapon 4 is used
+                } else if (selectedWeapon == 4) {
+                    projectiles.add(new Projectiles(player, Assets.arrowup, Assets.arrowdown, Assets.arrowright,
+                            Assets.arrowleft, 16, 32, 32, 16));
+                    // if user selects 5
+                    // inventory slot weapon 5 is used
+                } else if (selectedWeapon == 5) {
+                    projectiles.add(new Projectiles(player, Assets.spearup, Assets.speardown, Assets.spearright,
+                            Assets.spearleft, 32, 32, 32, 32));
                 }
             }
         }
+
+        // user selects the weapon of choice
+        // each choice correlates with the inventory slot number
+        // value of "selected Weapon" is then used to
+        // identify which weapon is being used
         if (e.getKeyChar() == '1') {
             selectedWeapon = 1;
         } else if (e.getKeyChar() == '2') {
             selectedWeapon = 2;
+        } else if (e.getKeyChar() == '3') {
+            selectedWeapon = 3;
+        } else if (e.getKeyChar() == '4') {
+            selectedWeapon = 4;
+        } else if (e.getKeyChar() == '5') {
+            selectedWeapon = 5;
         }
 
     }
@@ -452,9 +505,13 @@ public class Game implements Runnable, KeyListener {
     * Their health bar is regenerated
     */
     public void keyPressed(KeyEvent e) {
+        // user presses enter to interact with the NPC
+        // if enter is pressed, user regenerates health bar to full
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (player.getX() == 1 && player.getY() == 3 && player.getDirection() == 'a') {
                 player.setHealth(player.getMaxHealth());
+                // depending on the direction that the player approaches the enemy from
+                // the enemy faces towards the player
                 npcStance = Assets.npcright;
             } else if (player.getX() == 0 && player.getY() == 4 && player.getDirection() == 'w') {
                 player.setHealth(player.getMaxHealth());

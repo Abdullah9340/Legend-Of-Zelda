@@ -9,8 +9,11 @@ public class Assets {
 
     public static BufferedImage kniferight, knifeleft, knifeup, knifedown, knifeangle;
 
-    public static BufferedImage rasegan;
+    public static BufferedImage rasegan, gun, bullet;
 
+    public static BufferedImage bow, arrowup, arrowdown, arrowleft, arrowright;
+
+    public static BufferedImage spearangle, spearup, speardown, spearright, spearleft;
     public static BufferedImage[][] player = new BufferedImage[4][3];
 
     public static BufferedImage[][] darksoildersprite = new BufferedImage[4][5];
@@ -34,6 +37,22 @@ public class Assets {
         emptyheart = ImageLoader.loadImage("emptyheart.png");
 
         rasegan = ImageLoader.loadImage("rasengan.png");
+
+        gun = ImageLoader.loadImage("gun.png");
+        bullet = ImageLoader.loadImage("bullet.png");
+
+        bow = ImageLoader.loadImage("bow.png");
+
+        spearangle = ImageLoader.loadImage("spearangle.png");
+        spearup = ImageLoader.loadImage("spearup.png");
+        speardown = ImageLoader.loadImage("speardown.png");
+        spearleft = ImageLoader.loadImage("spearleft.png");
+        spearright = ImageLoader.loadImage("spearright.png");
+
+        arrowdown = ImageLoader.loadImage("arrowdown.png");
+        arrowup = ImageLoader.loadImage("arrowup.png");
+        arrowright = ImageLoader.loadImage("arrowright.png");
+        arrowleft = ImageLoader.loadImage("arrowleft.png");
 
         kniferight = ImageLoader.loadImage("kniferight.png");
         knifeleft = ImageLoader.loadImage("knifeleft.png");
