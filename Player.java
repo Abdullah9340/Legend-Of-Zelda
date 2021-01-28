@@ -1,8 +1,8 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.awt.*;
 
 public class Player implements KeyListener {
     private int maxHealth = 10, health = 10;
@@ -68,10 +68,13 @@ public class Player implements KeyListener {
     }
 
     public void drawInv(Graphics g) {
-        for (int i = 0; i < 5; i++) {
-            g.setColor(Color.black);
-            g.drawRect(300 + (i * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
-        }
+        g.setColor(Color.black);
+        g.drawRect(300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        g.drawRect(300 + (1 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        g.drawRect(300 + (2 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        g.drawRect(300 + (3 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        g.drawRect(300 + (4 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        g.drawImage(Assets.rasegan, 300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32, null);
 
     }
 

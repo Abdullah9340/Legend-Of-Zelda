@@ -8,12 +8,18 @@ public class Projectiles {
     private int amTime = 0, timeAm = 3;
     private char direction;
 
-    private BufferedImage invImage = Assets.knifeangle;
+    private BufferedImage invImage;
 
-    private BufferedImage up = Assets.knifeup, down = Assets.knifedown, left = Assets.knifeleft,
-            right = Assets.kniferight;
+    private BufferedImage up, down, right, left;
 
-    public Projectiles(Player player) {
+    public Projectiles(Player player, BufferedImage invImage, BufferedImage up, BufferedImage down, BufferedImage right,
+            BufferedImage left) {
+
+        this.invImage = invImage;
+        this.up = up;
+        this.down = down;
+        this.left = left;
+        this.right = right;
         if (player.getDirection() == 'w') {
             yVelocity = -1;
             xVelocity = 0;
@@ -69,4 +75,7 @@ public class Projectiles {
         return y;
     }
 
+    public BufferedImage getInvImage() {
+        return invImage;
+    }
 }

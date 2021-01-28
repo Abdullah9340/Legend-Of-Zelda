@@ -282,7 +282,8 @@ public class Game implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == 'q') {
             if (projectiles.size() < player.getMaxArrows()) {
-                projectiles.add(new Projectiles(player));
+                projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan, Assets.rasegan,
+                        Assets.rasegan));
             }
         }
 
