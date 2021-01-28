@@ -4,7 +4,7 @@ public class Assets {
 
     private static final int width = 16, height = 16;
 
-    public static BufferedImage dirt, grass, stone, tree, npc, fillheart, emptyheart;
+    public static BufferedImage dirt, grass, stone, tree, npcright, npcdown, fillheart, emptyheart;
 
     public static BufferedImage[][] player = new BufferedImage[4][3];
 
@@ -23,7 +23,8 @@ public class Assets {
         grass = sheet.crop(0, height * 3, width, height);
         tree = sheet.crop(0, 0, width, height);
         stone = sheet.crop(0, height, width, height);
-        npc = sheet.crop(width * 2, height * 1, width, height);
+        npcright = sheet.crop(width * 2, height * 1, width, height);
+        npcdown = sheet.crop(width * 2, 0, width, height);
 
         darksoildersprite[0][0] = darksoilder.crop(0, 0, 48, 64);
         darksoildersprite[0][1] = darksoilder.crop(1 * 60, 0, 60, 64);

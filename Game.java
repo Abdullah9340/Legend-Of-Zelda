@@ -1,9 +1,9 @@
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Game implements Runnable, KeyListener {
 
@@ -25,6 +25,8 @@ public class Game implements Runnable, KeyListener {
     private int objects[][];
     private ArrayList<Arrow> projectiles;
 
+    private BufferedImage npcStance;
+
     public Game(String title, int width, int height) {
         this.title = title;
         this.WIDTH = width;
@@ -36,6 +38,7 @@ public class Game implements Runnable, KeyListener {
     public void init() {
         display = new Display(title, WIDTH, HEIGHT);
         Assets.init();
+        npcStance = Assets.npcright;
         player = new Player();
         enemies = new ArrayList<Enemy>();
         enemies.add(new Enemy());
@@ -122,7 +125,7 @@ public class Game implements Runnable, KeyListener {
         g.drawImage(Assets.tree, 0, 2 * 64, 64, 64, null);
         g.drawImage(Assets.tree, 1 * 64, 1 * 64, 64, 64, null);
         g.drawImage(Assets.stone, 0, 1 * 64, 64, 64, null);
-        g.drawImage(Assets.npc, 0, 3 * 64, 64, 64, null);
+        g.drawImage(npcStance, 0, 3 * 64, 64, 64, null);
     }
 
     public void checkCollision() {
@@ -250,6 +253,13 @@ public class Game implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (player.getX() == 1 && player.getY() == 3 && player.getDirection() == 'a') {
+                player.setHealth(player.getMaxHealth());
+            } else if (player.getX() == 0 && player.getY() == 4 && player.getDirection() == 'w') {
+                player.setHealth(player.getMaxHealth());
+            }
+        }
     }
 
     @Override

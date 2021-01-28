@@ -159,6 +159,10 @@ public class Player implements KeyListener {
         return health;
     }
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
