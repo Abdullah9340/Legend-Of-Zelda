@@ -2,9 +2,10 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-    private static final int width = 16, height = 16;
+    private static final int width = 16, height = 16; // Declare width and height for certain tile sheet
 
-    public static BufferedImage dirt, grass, stone, tree, npcright, npcdown, fillheart, emptyheart;
+    // Declare all our image assets
+    public static BufferedImage grass, stone, tree, npcright, npcdown, fillheart, emptyheart;
 
     public static BufferedImage kniferight, knifeleft, knifeup, knifedown, knifeangle;
 
@@ -16,11 +17,19 @@ public class Assets {
 
     public static BufferedImage[][] skeletonsprite = new BufferedImage[4][3];
 
+    /*-
+     * Method: init() Description: Set up all image assets
+     *  pre: none post: loads all
+     * images into variables
+     */
+
     public static void init() {
+        // Load spritesheets
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("rpg.png"));
         SpriteSheet players = new SpriteSheet(ImageLoader.loadImage("players.png"));
         SpriteSheet darksoilder = new SpriteSheet(ImageLoader.loadImage("darksoilder.png"));
 
+        // Load Images
         fillheart = ImageLoader.loadImage("heart.png");
         emptyheart = ImageLoader.loadImage("emptyheart.png");
 

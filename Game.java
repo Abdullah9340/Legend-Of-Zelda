@@ -8,11 +8,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Game implements Runnable, KeyListener {
-
+    // Declaring Private Variables
     private int round = 0;
     private Display display;
     private boolean running = false;
 
+    // Variables for graphics objects
     private Graphics g;
     private BufferStrategy bs;
 
@@ -22,17 +23,30 @@ public class Game implements Runnable, KeyListener {
 
     private Thread thread;
     private Player player;
-    private ArrayList<Enemy> enemies;
 
-    private int objects[][];
+    // ArrayList for enemies
+    private ArrayList<Enemy> enemies;
     private ArrayList<Projectiles> projectiles;
 
+    // 2D Array that holds all our objects
+    private int objects[][];
+
+    // Image for which way the npc is looking
     private BufferedImage npcStance;
 
+    // Variable for if the player died
     private boolean isDead = false;
 
+    // Frame counter for starting new rounds
     private int roundAm = 0;
 
+    /*-
+     * Game() 
+     * Description: This calls the title, sets the width and height Also
+     * starts the game 
+     * Pre: the width, height dimensions, title 
+     * Post: Starts game
+     */
     public Game(String title, int width, int height) {
         this.title = title;
         this.WIDTH = width;
@@ -40,44 +54,66 @@ public class Game implements Runnable, KeyListener {
         this.start();
     }
 
-    // Init objects
+    /*-
+     * init() 
+     * Description: This initializes every aspect of the game Creates the
+     * objects for the following variables inside the method Displays the JFrame and
+     * initializes the KeyListener 
+     * Pre: None 
+     * Post: Initializes all the variables
+     */
     public void init() {
-        display = new Display(title, WIDTH, HEIGHT);
-        Assets.init();
-        npcStance = Assets.npcright;
+        display = new Display(title, WIDTH, HEIGHT); // Set up display
+        Assets.init(); // Sets up the asset images
+        npcStance = Assets.npcright; // Sets the default npc stance
         player = new Player();
         enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy());
+        enemies.add(new Enemy()); // Adds one enemmy to start
         projectiles = new ArrayList<Projectiles>();
-        display.getJFrame().addKeyListener(player);
+        display.getJFrame().addKeyListener(player); // Set up keylisteners
         display.getJFrame().addKeyListener(this);
         objects = new int[5][2];
-        setObjectCoord();
+        setObjectCoord(); // Sets the object coordinates
     }
 
-    // Setting object coordinates
+    /*-
+     * setObjectCoord() 
+     * Description: This method contains a 2D array that holds
+     * the sprite objects on to the game
+     * frame which the player can interact with 
+     * Pre: none 
+     * Post: Displays the sprite object
+     */
     public void setObjectCoord() {
         // object 1(tree)
         objects[0][0] = 0;
         objects[0][1] = 0;
-        // object 3(rock)
+        // object 2(rock)
         objects[2][0] = 0;
         objects[2][1] = 1;
-        // object 4(tree)
+        // object 3(tree)
         objects[3][0] = 0;
         objects[3][1] = 2;
-        // object 5(NPC)
+        // object 4(NPC)
         objects[4][0] = 0;
         objects[4][1] = 3;
     }
 
+    /*-
+    * update()
+    * Description: This method allows for the movement
+    * Render update for all objects in the game
+    * Pre : None
+    * Post: Makes sure that all user inputs 
+    * update the controls within the game
+    */
     public void update() {
-        if (!isDead) {
-            player.update();
+        if (!isDead) { // Only run if the player is not dead
+            player.update(); // Update the player
             for (int i = 0; i < enemies.size(); i++) {
-                enemies.get(i).update(player);
+                enemies.get(i).update(player); // Call each enemies update method
             }
-            if (enemies.size() == 0) {
+            if (enemies.size() == 0) { // If the enemy is 0 wait 300 frames then spawn 2 new ones
                 if (roundAm == 300) {
                     enemies.add(new Enemy());
                     enemies.add(new Enemy());
@@ -87,56 +123,76 @@ public class Game implements Runnable, KeyListener {
                 }
             }
 
+            // Update each projectile
             for (int i = projectiles.size() - 1; i >= 0; i--) {
-                if (projectiles.size() == 0) {
+                if (projectiles.size() == 0) { // Helps to fix bug
                     break;
                 }
                 projectiles.get(i).update();
+                // If projectile goes off the screen, remove it
                 if (projectiles.get(i).getX() > WIDTH / 64 || projectiles.get(i).getX() < -1) {
                     projectiles.remove(i);
                 } else if (projectiles.get(i).getY() > HEIGHT / 64 || projectiles.get(i).getY() < -1) {
                     projectiles.remove(i);
                 }
             }
+            // If the player has 0 health, isDead is true
             if (player.getHealth() == 0) {
                 isDead = true;
             }
-            checkCollision();
+            checkCollision(); // Check for collisions
         } else {
 
         }
     }
 
+    /*-
+    * GameOver()
+    * Description: This screen is visible after the player has died
+    * Pre: None
+    * Post: Displays a game over screen
+    */
     public void GameOver(Graphics g) {
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
         g.drawString("Game Over", WIDTH / 2 / 2, HEIGHT / 2);
     }
 
+    /*-
+        Method: BackGroundGo()
+        pre: none
+        post: draws the gameover background
+    */
     public void BackGroundGO(Graphics g) {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
     }
 
+    /*-
+        Method:render()
+        pre: none
+        post: draws the graphics
+    */
     public void render() {
+        // Set up the graphic objects
         bs = display.getCanvas().getBufferStrategy();
-        if (bs == null) {
+        if (bs == null) { // Create a buffer strategy
             display.getCanvas().createBufferStrategy(3);
             return;
         }
         g = bs.getDrawGraphics();
-        g.clearRect(0, 0, WIDTH, HEIGHT);
+        g.clearRect(0, 0, WIDTH, HEIGHT); // Clear the background
         // Draw
-        if (!isDead) {
-            drawBackground(g);
+        if (!isDead) { // If the player is not dead
+            drawBackground(g);// Draw the background
             for (int i = 0; i < enemies.size(); i++) {
-                enemies.get(i).render(g);
+                enemies.get(i).render(g); // Render each enemy
             }
             for (int i = 0; i < projectiles.size(); i++) {
-                projectiles.get(i).render(g);
+                projectiles.get(i).render(g); // Render each projectile
             }
-            player.render(g);
-        } else {
+            player.render(g); // Render the player
+        } else { // If the player is dead
             BackGroundGO(g);
             GameOver(g);
         }
@@ -145,6 +201,13 @@ public class Game implements Runnable, KeyListener {
         g.dispose();
     }
 
+    /*-
+    * drawBackGround()
+    * Description: Method holds the location for the in game
+    * objects
+    * Pre: None
+    * Post: Displays ingame objects
+    */
     public void drawBackground(Graphics g) {
         for (int i = 0; i < HEIGHT / 64; i++) {
             for (int j = 0; j < WIDTH / 64; j++) {
@@ -158,16 +221,29 @@ public class Game implements Runnable, KeyListener {
         g.drawImage(npcStance, 0, 3 * 64, 64, 64, null);
     }
 
+    /*-
+    * checkCollision()
+    * Description: This method contains all the necessary x and y
+    * coordinates that any character in the game is not allowed to 
+    * get in contact with
+    * Pre: None
+    * Post: Makes sure that the characters on screen are not 
+    * just running off the screen and also does not 
+    * run through any background objects
+    */
     public void checkCollision() {
         for (int i = projectiles.size() - 1; i >= 0; i--) {
             for (int j = enemies.size() - 1; j >= 0; j--) {
-                if (projectiles.size() != 0) {
+                if (projectiles.size() != 0) { // If the projectiles are not empty
+                    // If the projectiles hits and enemy, remove the projectile and lower enemy
+                    // health
                     if (projectiles.get(i).getX() == enemies.get(j).getX()
                             && projectiles.get(i).getY() == enemies.get(j).getY()) {
                         projectiles.remove(i);
                         enemies.get(j).setHealth(enemies.get(j).getHealth() - 1);
                     }
                 }
+                // If enemey health is 0, remove it
                 if (enemies.get(j).getHealth() == 0) {
                     enemies.remove(j);
                     j--;
@@ -175,20 +251,27 @@ public class Game implements Runnable, KeyListener {
 
             }
         }
+
+        // Check of collision of enemy/player with objects
         for (int i = 0; i < objects.length; i++) {
+            // If the player is colliding move it back 1 block
             if (player.getX() == objects[i][0] && player.getY() == objects[i][1]) {
                 setPlayerCoord(player);
             }
+            // Check if enemies are colliding with objects or player
             for (int j = 0; j < enemies.size(); j++) {
+                // If the enemy hits an object, move it back a block
                 if (enemies.get(j).getX() == objects[i][0] && enemies.get(j).getY() == objects[i][1]) {
                     setEnemyCoord(enemies.get(j));
                 }
+                // If the enemy hits the player, reduce player health
                 if (enemies.get(j).getY() == player.getY() && enemies.get(j).getX() == player.getX()) {
                     player.setHealth(player.getHealth() - 1);
                     setEnemyCoord(enemies.get(j));
                 }
             }
         }
+        // If the enemies collide with eachother, move one of them back
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = i + 1; j < enemies.size(); j++) {
                 if (enemies.get(i).getX() == enemies.get(j).getX() && enemies.get(i).getY() == enemies.get(j).getY()) {
@@ -196,6 +279,8 @@ public class Game implements Runnable, KeyListener {
                 }
             }
         }
+
+        // Prevent player from going off map
         if (player.getX() >= WIDTH / 64) {
             player.setX(WIDTH / 64 - 1);
         }
@@ -211,6 +296,13 @@ public class Game implements Runnable, KeyListener {
 
     }
 
+    /*- 
+    * setPlayerCoord()
+    * Description: This method controls the interaction between
+    * a playable character any object or enemy on screen
+    * Pre: player object
+    * Post: Moves player back by one unit of the coordinate
+    */
     public void setPlayerCoord(Player player) {
         if (player.getDirection() == 's') {
             player.setY(player.getY() - 1);
@@ -223,6 +315,13 @@ public class Game implements Runnable, KeyListener {
         }
     }
 
+    /*- 
+    * setEnemyCoord()
+    * Description: This method controls the interaction between
+    * an enemy to a playable character  or any object on screen
+    * Pre: enemy object
+    * Post: Moves player back by one unit of the coordinate
+    */
     public void setEnemyCoord(Enemy enemy) {
         if (enemy.getDirection() == 's') {
             enemy.setY(enemy.getY() - 1);
@@ -235,6 +334,15 @@ public class Game implements Runnable, KeyListener {
         }
     }
 
+    /*-
+    * run()
+    * Description: Method contains the game loop
+    * This makes sure all objets called within this method
+    * gets run inside the game loop
+    * Game is set to 60fps(tile based)
+    * Pre: None
+    * Post: Starts the game thread
+    */
     public void run() {
         init();
 
@@ -258,6 +366,13 @@ public class Game implements Runnable, KeyListener {
         }
     }
 
+    /*-
+    * start()
+    * Description: Starts the whole game
+    * initializes the thread
+    * Pre: None
+    * Post: Starts the game thread 
+    */
     public void start() {
         if (running) {
             return;
@@ -267,6 +382,11 @@ public class Game implements Runnable, KeyListener {
         thread.start();
     }
 
+    /*-
+    * stop()
+    * Pre: None
+    * Post: Starts the game thread 
+    */
     public void stop() {
         if (!running) {
             return;
@@ -279,6 +399,12 @@ public class Game implements Runnable, KeyListener {
     }
 
     @Override
+    /*-
+     * KeyTyped() 
+     * Pre: None 
+     * Post: If player clicks q The selected weapon of choice
+     * gets shot
+     */
     public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == 'q') {
             if (projectiles.size() < player.getMaxArrows()) {
@@ -290,6 +416,12 @@ public class Game implements Runnable, KeyListener {
     }
 
     @Override
+    /*-
+    * KeyPressed()
+    * Pre: None
+    * Post: If the player selects enter
+    * Their health bar is regenerated
+    */
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (player.getX() == 1 && player.getY() == 3 && player.getDirection() == 'a') {
@@ -303,9 +435,19 @@ public class Game implements Runnable, KeyListener {
     }
 
     @Override
+    /*- 
+    * KeyReleased()
+    * Pre: None
+    * Post: None
+    */
     public void keyReleased(KeyEvent e) {
     }
 
+    /*-
+    * getProjectiles()
+    * Pre: None
+    * Post: Returns projectile
+    */
     public ArrayList<Projectiles> getProjectiles() {
         return projectiles;
     }

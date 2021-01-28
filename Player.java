@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class Player implements KeyListener {
+    // Declaring Private variables
     private int maxHealth = 10, health = 10;
     private int x = 7, y = 7;
     private int speed = 1;
@@ -13,14 +14,29 @@ public class Player implements KeyListener {
 
     private int maxArrows = 1;
 
+    // Declare a boolean moving variable
+    // Set to false
     private boolean moving = false;
 
+    // Declaring animation time variables
     private int amTime = 0, timeAm = 9;
+
+    // create a 2D array for the player sprite images
     private BufferedImage[][] playerSprite = Assets.player;
 
+    // Direction for player character is set to down
     private char direction = 's';
 
+    /*-
+    * render()
+    * Pre: None
+    * Post: Renders the animation speed and the 
+    * player sprites. Player sprites are set to the default
+    * location somewhere on the lower half of the screen
+    */
     public void render(Graphics g) {
+        // Rendering the animation time for the player
+        // movements
         int renderAm = 0;
         if (moving) {
             if (amTime == 0) {
@@ -31,6 +47,9 @@ public class Player implements KeyListener {
                 renderAm = 2;
             }
         }
+        // Moves the player depending on which direction is set
+        // Following methods contain the player controls which
+        // set the direction of the player
         if (direction == 'w') {
             g.drawImage(playerSprite[3][renderAm], x * 64 + 8, y * 64 + 8 - renderAm * 5, 48, 48, null);
         } else if (direction == 's') {
@@ -46,17 +65,29 @@ public class Player implements KeyListener {
             health = 0;
         }
 
+        // If statement that controls the players health
+        // the for loop goes through each of the hearts
+        // in the health bar
         for (int i = 0; i < maxHealth; i++) {
             if (i + 1 <= health) {
+
+                // The following statements draws a red heart of
+                // if the player is hit, then an empty heart
                 g.drawImage(Assets.fillheart, i * 20, 0, 32, 32, null);
             } else {
                 g.drawImage(Assets.emptyheart, i * 20, 0, 32, 32, null);
             }
         }
 
+        // Draws the player inventory
         drawInv(g);
     }
 
+    /*- 
+    * update()
+    * Pre: None
+    * Post: shows that the player moves across the screen
+    */
     public void update() {
         if (amTime > timeAm) {
             move();
@@ -67,23 +98,48 @@ public class Player implements KeyListener {
 
     }
 
+    /*- 
+    * drawInv()
+    * Pre: None
+    * Post: Displays the location of the inventory on screen
+    * This includes the items in the inventory
+    */
     public void drawInv(Graphics g) {
+        // sets the color for the following
         g.setColor(Color.black);
+        // draws the boxes of the inventory
         g.drawRect(300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         g.drawRect(300 + (1 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         g.drawRect(300 + (2 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         g.drawRect(300 + (3 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         g.drawRect(300 + (4 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        // draws the 
         g.drawImage(Assets.rasegan, 300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32, null);
 
     }
 
+    /*-
+    * KeyTyped()
+    * Pre: None
+    * Post: None 
+    */
     public void keyTyped(KeyEvent e) {
 
     }
 
+    /*-
+    * KeyPressed()
+    * Pre: None
+    * Post: Gets the player moving across the screen using
+    * specific key presses
+    */
     public void keyPressed(KeyEvent e) {
+        // If statement with a boolean variable
+        // If player is not moving then these conditions
+        // Will apply
         if (!moving) {
+            // Movement direction (front)
+            // set to the letter w or the up arrow on the keyboard
             if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W' || e.getKeyCode() == 38) {
                 if (direction == 'w') {
                     setYDirection(-speed);
@@ -92,6 +148,8 @@ public class Player implements KeyListener {
                     direction = 'w';
                 }
             }
+            // Movement direction (back)
+            // set to the letter s or down arrow on the keyboard
             if (e.getKeyChar() == 's' || e.getKeyChar() == 'S' || e.getKeyCode() == 40) {
                 if (direction == 's') {
                     setYDirection(speed);
@@ -99,8 +157,9 @@ public class Player implements KeyListener {
                 } else {
                     direction = 's';
                 }
-
             }
+            // Movement direction (left)
+            // set to the letter a or left arrow on the keyboard
             if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A' || e.getKeyCode() == 37) {
                 if (direction == 'a') {
                     setXDirection(-speed);
@@ -109,6 +168,8 @@ public class Player implements KeyListener {
                     direction = 'a';
                 }
             }
+            // Movement direction (right)
+            // set to the letter d or right arrow on the keyboard
             if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D' || e.getKeyCode() == 39) {
                 if (direction == 'd') {
                     setXDirection(speed);
@@ -120,19 +181,30 @@ public class Player implements KeyListener {
         }
     }
 
+    /*-
+    * KeyReleased()
+    * Pre: None
+    * Post: Makes the player 
+    topped if the designated 
+    * direction key is released
+    */
     public void keyReleased(KeyEvent e) {
+        // player movement stops if W or up arrow is released
         if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == 38) {
             setYDirection(0);
             moving = false;
             amTime = 0;
+            // player movement stops if S or down arrow is released
         } else if (e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == 40) {
             setYDirection(0);
             moving = false;
             amTime = 0;
+            // player movement stops if A or left arrow is released
         } else if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == 37) {
             setXDirection(0);
             moving = false;
             amTime = 0;
+            // player movement stops if D or left arrow is released
         } else if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == 39) {
             setXDirection(0);
             moving = false;
@@ -140,51 +212,105 @@ public class Player implements KeyListener {
         }
     }
 
+    /*-
+    * setYDirection()
+    * Pre: None
+    * Post: Player chooses the direction that is set by the
+    * KeyPressed()
+    */
     public void setYDirection(int yDirection) {
         this.yVelocity = yDirection;
     }
 
+    /*-
+    * setXDirection()
+    * Pre: None
+    * Post: Player chooses the direction that is set by the
+    * KeyPressed()
+    */
     public void setXDirection(int xDirection) {
         this.xVelocity = xDirection;
     }
 
+    /*-
+    * move()
+    * Pre: None
+    * Post: Player moves the direction that is set by the
+    * setXDirection() or setYDirection
+    */
     public void move() {
         x += xVelocity;
         y += yVelocity;
     }
 
+    /*-
+        Method: getDirection()
+        pre: none
+        post: returns the current direction
+    */
     public char getDirection() {
         return direction;
     }
 
+    /*
+     * Method: getX() pre: none post: returns the current x value
+     */
     public int getX() {
         return x;
     }
 
+    /*
+     * Method: getY() pre: none post: returns the current y value
+     */
     public int getY() {
         return y;
     }
 
+    /*-
+        Method: getMaxArrows()
+        pre: none
+        post: returns the max number of projectiles
+    */
     public int getMaxArrows() {
         return maxArrows;
     }
 
+    /*
+     * Method: getHealth() pre: none post: returns the players current health
+     */
     public int getHealth() {
         return health;
     }
 
+    /*
+     * Method: getMaxHealth() pre: none post: returns the players max health
+     */
     public int getMaxHealth() {
         return maxHealth;
     }
 
+    /*
+     * Method: setX() pre: x must be a valid coordinate post: sets new x coordinate
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /*-
+        Method: setY()
+        pre: y must be a valid coordinate
+        post: sets new y coord
+    */
     public void setY(int y) {
         this.y = y;
     }
 
+    /*-
+        Method: setHealth
+        pre: health > 0
+        post: sets the new health
+        
+    */
     public void setHealth(int health) {
         this.health = health;
     }
