@@ -68,14 +68,14 @@ public class Projectiles {
     */
     public void render(Graphics g) {
         if (direction == 'w') {
-            g.drawImage(up, x * 64 + 24, y * 64 + 16, 16, 32, null);
+            g.drawImage(up, x * 64 + 24, y * 64 + 16, 32, 32, null);
         } else if (direction == 's') {
-            g.drawImage(down, x * 64 + 24, y * 64 + 16, 16, 32, null);
+            g.drawImage(down, x * 64 + 24, y * 64 + 16, 32, 32, null);
 
         } else if (direction == 'a') {
-            g.drawImage(left, x * 64 + 16, y * 64 + 24, 32, 16, null);
+            g.drawImage(left, x * 64 + 16, y * 64 + 24, 32, 32, null);
         } else {
-            g.drawImage(right, x * 64 + 16, y * 64 + 24, 32, 16, null);
+            g.drawImage(right, x * 64 + 16, y * 64 + 24, 32, 32, null);
         }
     }
 
