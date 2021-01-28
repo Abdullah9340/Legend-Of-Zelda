@@ -162,7 +162,12 @@ public class Game implements Runnable, KeyListener {
     public void GameOver(Graphics g) {
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
-        g.drawString("Game Over", WIDTH / 2 / 2, HEIGHT / 2);
+        g.drawString("Game Over", WIDTH / 2 / 2, HEIGHT / 2 - 50);
+        g.setFont(new Font("Ink Free", Font.BOLD, 60));
+        g.drawString("You Died", WIDTH / 2 / 2 + 65, HEIGHT - 200);
+        String finalRound = "You have reached round: " + round;
+        g.setFont(new Font("Ink Free", Font.BOLD, 45));
+        g.drawString(finalRound, WIDTH / 2 / 2 - 100, HEIGHT - 100);
     }
 
     /*-
@@ -173,6 +178,12 @@ public class Game implements Runnable, KeyListener {
     public void BackGroundGO(Graphics g) {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+    }
+
+    public void GameWin(Graphics g) {
+        g.setColor(Color.red);
+        g.setFont(new Font(" Ink Free ", Font.BOLD, 75));
+        // g.drawString("YOU WON!", WIDTH / 2 / 2, HEIGHT / 2 - 50);
     }
 
     /*-
