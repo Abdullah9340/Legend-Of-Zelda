@@ -64,8 +64,14 @@ public class Enemy {
     }
 
     public Enemy() {
-        x = (int) (Math.random() * LegendOfZelda.WIDTH / 64);
-        y = 0;
+        int position = (int) (Math.random() * 2);
+        if (position == 0) {
+            y = 0;
+            x = (int) (Math.random() * LegendOfZelda.WIDTH / 64);
+        } else {
+            x = LegendOfZelda.WIDTH / 64 + 1;
+            y = (int) (Math.random() * LegendOfZelda.HEIGHT / 64);
+        }
     }
 
     public void setEDirection(int eDirect) {

@@ -31,6 +31,8 @@ public class Game implements Runnable, KeyListener {
 
     private boolean isDead = false;
 
+    private int roundAm = 0;
+
     public Game(String title, int width, int height) {
         this.title = title;
         this.WIDTH = width;
@@ -76,8 +78,13 @@ public class Game implements Runnable, KeyListener {
                 enemies.get(i).update(player);
             }
             if (enemies.size() == 0) {
-                enemies.add(new Enemy());
-                enemies.add(new Enemy());
+                if (roundAm == 300) {
+                    enemies.add(new Enemy());
+                    enemies.add(new Enemy());
+                    roundAm = 0;
+                } else {
+                    roundAm++;
+                }
             }
 
             for (int i = projectiles.size() - 1; i >= 0; i--) {
@@ -102,9 +109,13 @@ public class Game implements Runnable, KeyListener {
 
     public void GameOver(Graphics g) {
         g.setColor(Color.red);
-        g.clearRect(0, 0, WIDTH, HEIGHT);
         g.setFont(new Font("Ink Free", Font.BOLD, 75));
         g.drawString("Game Over", 250, HEIGHT / 2);
+    }
+
+    public void BackGroundGO(Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
     }
 
     public void render() {
@@ -126,6 +137,7 @@ public class Game implements Runnable, KeyListener {
             }
             player.render(g);
         } else {
+            BackGroundGO(g);
             GameOver(g);
         }
         // End Draw
