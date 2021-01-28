@@ -161,6 +161,13 @@ public class Game implements Runnable, KeyListener {
                 }
             }
         }
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = i + 1; j < enemies.size(); j++) {
+                if (enemies.get(i).getX() == enemies.get(j).getX() && enemies.get(i).getY() == enemies.get(j).getY()) {
+                    setEnemyCoord(enemies.get(i));
+                }
+            }
+        }
         if (player.getX() >= WIDTH / 64) {
             player.setX(WIDTH / 64 - 1);
         }
