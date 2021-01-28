@@ -34,7 +34,7 @@ public class Player implements KeyListener {
     * player sprites. Player sprites are set to the default
     * location somewhere on the lower half of the screen
     */
-    public void render(Graphics g) {
+    public void render(Graphics g, int selectedWeapon) {
         // Rendering the animation time for the player
         // movements
         int renderAm = 0;
@@ -80,7 +80,7 @@ public class Player implements KeyListener {
         }
 
         // Draws the player inventory
-        drawInv(g);
+        drawInv(g, selectedWeapon);
     }
 
     /*- 
@@ -104,17 +104,21 @@ public class Player implements KeyListener {
     * Post: Displays the location of the inventory on screen
     * This includes the items in the inventory
     */
-    public void drawInv(Graphics g) {
+    public void drawInv(Graphics g, int selectedWeapon) {
         // sets the color for the following
         g.setColor(Color.black);
         // draws the boxes of the inventory
-        g.drawRect(300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
-        g.drawRect(300 + (1 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
-        g.drawRect(300 + (2 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
-        g.drawRect(300 + (3 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
-        g.drawRect(300 + (4 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
+        for (int i = 0; i < 5; i++) {
+            if (i + 1 == selectedWeapon) {
+                g.setColor(Color.white);
+            } else {
+                g.setColor(Color.black);
+            }
+            g.drawRect(300 + (i * 31), LegendOfZelda.HEIGHT - 36, 32, 32);
+        }
         // draws the weapons inside the inventory
         g.drawImage(Assets.rasegan, 300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32, null);
+        g.drawImage(Assets.knifeangle, 300 + (1 * 32), LegendOfZelda.HEIGHT - 36, 32, 32, null);
 
     }
 

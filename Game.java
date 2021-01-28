@@ -12,6 +12,7 @@ public class Game implements Runnable, KeyListener {
     private int round = 1;
     private Display display;
     private boolean running = false;
+    private int selectedWeapon = 2;
 
     // Variables for graphics objects
     private Graphics g;
@@ -209,7 +210,7 @@ public class Game implements Runnable, KeyListener {
             for (int i = 0; i < projectiles.size(); i++) {
                 projectiles.get(i).render(g); // Render each projectile
             }
-            player.render(g); // Render the player
+            player.render(g, selectedWeapon); // Render the player
         } else { // If the player is dead
             BackGroundGO(g);
             GameOver(g);
@@ -426,9 +427,19 @@ public class Game implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == 'q') {
             if (projectiles.size() < player.getMaxArrows()) {
-                projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan, Assets.rasegan,
-                        Assets.rasegan));
+                if (selectedWeapon == 1) {
+                    projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan,
+                            Assets.rasegan, 32, 32, 32, 32));
+                } else if (selectedWeapon == 2) {
+                    projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
+                            Assets.knifeleft, 16, 32, 32, 16));
+                }
             }
+        }
+        if (e.getKeyChar() == '1') {
+            selectedWeapon = 1;
+        } else if (e.getKeyChar() == '2') {
+            selectedWeapon = 2;
         }
 
     }

@@ -9,7 +9,7 @@ public class Projectiles {
     private int amTime = 0, timeAm = 3; // Time per frame for projectile to move
     private char direction; // Direction of projectile
 
-    private BufferedImage invImage; // Invetory image
+    private int vXSize, vYSize, hXSize, hYSize;
 
     private BufferedImage up, down, right, left; // Images for each sprite
 
@@ -19,10 +19,13 @@ public class Projectiles {
      * post: assigns all the variables needed to
      * render and update the projectile
      */
-    public Projectiles(Player player, BufferedImage invImage, BufferedImage up, BufferedImage down, BufferedImage right,
-            BufferedImage left) {
+    public Projectiles(Player player, BufferedImage up, BufferedImage down, BufferedImage right, BufferedImage left,
+            int vXSize, int vYSize, int hXSize, int hYSize) {
 
-        this.invImage = invImage;
+        this.vXSize = vXSize;
+        this.vYSize = vYSize;
+        this.hXSize = hXSize;
+        this.hYSize = hYSize;
         this.up = up;
         this.down = down;
         this.left = left;
@@ -68,14 +71,14 @@ public class Projectiles {
     */
     public void render(Graphics g) {
         if (direction == 'w') {
-            g.drawImage(up, x * 64 + 24, y * 64 + 16, 32, 32, null);
+            g.drawImage(up, x * 64 + 24, y * 64 + 16, vXSize, vYSize, null);
         } else if (direction == 's') {
-            g.drawImage(down, x * 64 + 24, y * 64 + 16, 32, 32, null);
+            g.drawImage(down, x * 64 + 24, y * 64 + 16, vXSize, vYSize, null);
 
         } else if (direction == 'a') {
-            g.drawImage(left, x * 64 + 16, y * 64 + 24, 32, 32, null);
+            g.drawImage(left, x * 64 + 16, y * 64 + 24, hXSize, hYSize, null);
         } else {
-            g.drawImage(right, x * 64 + 16, y * 64 + 24, 32, 32, null);
+            g.drawImage(right, x * 64 + 16, y * 64 + 24, hXSize, hYSize, null);
         }
     }
 
