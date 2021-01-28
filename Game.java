@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Game implements Runnable, KeyListener {
     // Declaring Private Variables
-    private int round = 0;
+    private int round = 1;
     private Display display;
     private boolean running = false;
 
@@ -113,10 +113,12 @@ public class Game implements Runnable, KeyListener {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.get(i).update(player); // Call each enemies update method
             }
-            if (enemies.size() == 0) { // If the enemy is 0 wait 300 frames then spawn 2 new ones
+            if (enemies.size() == 0) { // If the enemy is 0 wait 300 frames(5 seconds) then spawn 2 new ones
                 if (roundAm == 300) {
-                    enemies.add(new Enemy());
-                    enemies.add(new Enemy());
+                    round++;
+                    for (int i = 0; i < round; i++) {
+                        enemies.add(new Enemy());
+                    }
                     roundAm = 0;
                 } else {
                     roundAm++;

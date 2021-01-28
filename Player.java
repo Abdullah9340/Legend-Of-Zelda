@@ -113,7 +113,7 @@ public class Player implements KeyListener {
         g.drawRect(300 + (2 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         g.drawRect(300 + (3 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
         g.drawRect(300 + (4 * 32), LegendOfZelda.HEIGHT - 36, 32, 32);
-        // draws the 
+        // draws the weapons inside the inventory
         g.drawImage(Assets.rasegan, 300 + (0 * 32), LegendOfZelda.HEIGHT - 36, 32, 32, null);
 
     }
