@@ -28,37 +28,37 @@ public class Assets {
 
     public static void init() {
         // Load spritesheets
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("rpg.png"));
-        SpriteSheet players = new SpriteSheet(ImageLoader.loadImage("players.png"));
-        SpriteSheet darksoilder = new SpriteSheet(ImageLoader.loadImage("darksoilder.png"));
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("Assets/rpg.png"));
+        SpriteSheet players = new SpriteSheet(ImageLoader.loadImage("Assets/players.png"));
+        SpriteSheet darksoilder = new SpriteSheet(ImageLoader.loadImage("Assets/darksoilder.png"));
 
         // Load Images
-        fillheart = ImageLoader.loadImage("heart.png");
-        emptyheart = ImageLoader.loadImage("emptyheart.png");
+        fillheart = ImageLoader.loadImage("Assets/heart.png");
+        emptyheart = ImageLoader.loadImage("Assets/emptyheart.png");
 
-        rasegan = ImageLoader.loadImage("rasengan.png");
+        rasegan = ImageLoader.loadImage("Assets/rasengan.png");
 
-        gun = ImageLoader.loadImage("gun.png");
-        bullet = ImageLoader.loadImage("bullet.png");
+        gun = ImageLoader.loadImage("Assets/gun.png");
+        bullet = ImageLoader.loadImage("Assets/bullet.png");
 
-        bow = ImageLoader.loadImage("bow.png");
+        bow = ImageLoader.loadImage("Assets/bow.png");
 
-        spearangle = ImageLoader.loadImage("spearangle.png");
-        spearup = ImageLoader.loadImage("spearup.png");
-        speardown = ImageLoader.loadImage("speardown.png");
-        spearleft = ImageLoader.loadImage("spearleft.png");
-        spearright = ImageLoader.loadImage("spearright.png");
+        spearangle = ImageLoader.loadImage("Assets/spearangle.png");
+        spearup = ImageLoader.loadImage("Assets/spearup.png");
+        speardown = ImageLoader.loadImage("Assets/speardown.png");
+        spearleft = ImageLoader.loadImage("Assets/spearleft.png");
+        spearright = ImageLoader.loadImage("Assets/spearright.png");
 
-        arrowdown = ImageLoader.loadImage("arrowdown.png");
-        arrowup = ImageLoader.loadImage("arrowup.png");
-        arrowright = ImageLoader.loadImage("arrowright.png");
-        arrowleft = ImageLoader.loadImage("arrowleft.png");
+        arrowdown = ImageLoader.loadImage("Assets/arrowdown.png");
+        arrowup = ImageLoader.loadImage("Assets/arrowup.png");
+        arrowright = ImageLoader.loadImage("Assets/arrowright.png");
+        arrowleft = ImageLoader.loadImage("Assets/arrowleft.png");
 
-        kniferight = ImageLoader.loadImage("kniferight.png");
-        knifeleft = ImageLoader.loadImage("knifeleft.png");
-        knifedown = ImageLoader.loadImage("knifedown.png");
-        knifeup = ImageLoader.loadImage("knifeup.png");
-        knifeangle = ImageLoader.loadImage("knifeangle.png");
+        kniferight = ImageLoader.loadImage("Assets/kniferight.png");
+        knifeleft = ImageLoader.loadImage("Assets/knifeleft.png");
+        knifedown = ImageLoader.loadImage("Assets/knifedown.png");
+        knifeup = ImageLoader.loadImage("Assets/knifeup.png");
+        knifeangle = ImageLoader.loadImage("Assets/knifeangle.png");
 
         grass = sheet.crop(0, height * 3, width, height);
         tree = sheet.crop(0, 0, width, height);

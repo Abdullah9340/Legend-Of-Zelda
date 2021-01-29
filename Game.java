@@ -81,7 +81,7 @@ public class Game implements Runnable, KeyListener {
     /*-
      * setObjectCoord() 
      * Description: This method contains a 2D array that holds
-     * the sprite objects on to the game
+     * the location of the sprite objects on to the game
      * frame which the player can interact with 
      * Pre: none 
      * Post: Displays the sprite object
@@ -186,7 +186,7 @@ public class Game implements Runnable, KeyListener {
         g.setColor(Color.red);
         g.setFont(new Font(" Ink Free ", Font.BOLD, 75));
         g.drawString("YOU WON!", WIDTH / 2 / 2, HEIGHT / 2 - 50);
-        String finalRound = "You Beat The Game Round: ";
+        String finalRound = "You Beat The Game";
         g.setFont(new Font("Ink Free", Font.BOLD, 45));
         g.drawString(finalRound, WIDTH / 2 / 2 - 90, HEIGHT - 100);
     }
@@ -460,6 +460,7 @@ public class Game implements Runnable, KeyListener {
                 } else if (selectedWeapon == 2) {
                     projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
                             Assets.knifeleft, 16, 32, 32, 16));
+                    Music.projectileNoise("Assets/knifethrow.wav");
                     // if user selects 3
                     // inventory slot weapon 3 is used
                 } else if (selectedWeapon == 3) {
