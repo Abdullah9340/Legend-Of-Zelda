@@ -191,7 +191,7 @@ public class Player implements KeyListener {
     * KeyReleased()
     * Pre: None
     * Post: Makes the player 
-    topped if the designated 
+    * stop if the designated 
     * direction key is released
     */
     public void keyReleased(KeyEvent e) {

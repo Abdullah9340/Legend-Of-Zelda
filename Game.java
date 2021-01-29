@@ -397,6 +397,7 @@ public class Game implements Runnable, KeyListener {
             delta += (now - lastTime) / timePerTick;
             lastTime = now;
 
+            // Main game loop
             if (delta >= 1) {
                 update();
                 render();

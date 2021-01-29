@@ -5,6 +5,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Music {
+    /*-
+     * Method: backgroundMusic() 
+     * pre: none 
+     * post: starts out background music
+     */
     public static void backgroundMusic() {
         try {
             File file = new File("Assets/backgroundmusic.wav"); // Read file
@@ -18,6 +23,11 @@ public class Music {
         }
     }
 
+    /*-
+     * projectileNoise()
+     *  Pre: path must be a valid file path 
+     *  Post: starts projectile sound
+     */
     public static void projectileNoise(String path) {
         try {
             File file = new File(path); // Read file
