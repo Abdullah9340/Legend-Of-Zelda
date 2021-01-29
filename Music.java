@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 public class Music {
     public static void backgroundMusic() {
         try {
-            File file = new File("Assets/music.wav"); // Read file
+            File file = new File("Assets/backgroundmusic.wav"); // Read file
             Clip clip = AudioSystem.getClip();
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(file); // Create an audio stream for the file
             clip.open(inputStream);

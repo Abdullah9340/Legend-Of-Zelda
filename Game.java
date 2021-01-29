@@ -65,6 +65,7 @@ public class Game implements Runnable, KeyListener {
      * Post: Initializes all the variables
      */
     public void init() {
+        Music.backgroundMusic();
         display = new Display(title, WIDTH, HEIGHT); // Set up display
         Assets.init(); // Sets up the asset images
         npcStance = Assets.npcright; // Sets the default npc stance
@@ -288,7 +289,6 @@ public class Game implements Runnable, KeyListener {
                     enemies.remove(j);
                     j--;
                 }
-
             }
         }
 
@@ -447,7 +447,7 @@ public class Game implements Runnable, KeyListener {
      */
     public void keyTyped(KeyEvent e) {
         // user presses q to shoot a projectile
-        if (e.getKeyChar() == 'q') {
+        if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
             if (projectiles.size() < player.getMaxArrows()) {
                 // user selects the weapon
                 // if user selects 1
@@ -460,7 +460,6 @@ public class Game implements Runnable, KeyListener {
                 } else if (selectedWeapon == 2) {
                     projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
                             Assets.knifeleft, 16, 32, 32, 16));
-                    Music.projectileNoise("Assets/knifethrow.wav");
                     // if user selects 3
                     // inventory slot weapon 3 is used
                 } else if (selectedWeapon == 3) {
