@@ -147,42 +147,34 @@ public class Player implements KeyListener {
             // Movement direction (front)
             // set to the letter w or the up arrow on the keyboard
             if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W' || e.getKeyCode() == 38) {
-                if (direction == 'w') {
-                    setYDirection(-speed);
-                    moving = true;
-                } else {
-                    direction = 'w';
-                }
+                setYDirection(-speed);
+                moving = true;
+                direction = 'w';
+
             }
             // Movement direction (back)
             // set to the letter s or down arrow on the keyboard
             if (e.getKeyChar() == 's' || e.getKeyChar() == 'S' || e.getKeyCode() == 40) {
-                if (direction == 's') {
-                    setYDirection(speed);
-                    moving = true;
-                } else {
-                    direction = 's';
-                }
+                setYDirection(speed);
+                moving = true;
+                direction = 's';
+
             }
             // Movement direction (left)
             // set to the letter a or left arrow on the keyboard
             if (e.getKeyChar() == 'a' || e.getKeyChar() == 'A' || e.getKeyCode() == 37) {
-                if (direction == 'a') {
-                    setXDirection(-speed);
-                    moving = true;
-                } else {
-                    direction = 'a';
-                }
+                setXDirection(-speed);
+                moving = true;
+                direction = 'a';
+
             }
             // Movement direction (right)
             // set to the letter d or right arrow on the keyboard
             if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D' || e.getKeyCode() == 39) {
-                if (direction == 'd') {
-                    setXDirection(speed);
-                    moving = true;
-                } else {
-                    direction = 'd';
-                }
+                setXDirection(speed);
+                moving = true;
+                direction = 'd';
+
             }
         }
     }

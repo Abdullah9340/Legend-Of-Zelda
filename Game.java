@@ -123,7 +123,7 @@ public class Game implements Runnable, KeyListener {
             if (enemies.size() == 0) {
                 if (roundAm == 300) {
                     round++;
-                    if (round == 10) {
+                    if (round == 11) {
                         won = true;
                     }
                     for (int i = 0; i < round; i++) {
@@ -236,7 +236,7 @@ public class Game implements Runnable, KeyListener {
     */
     public void drawRound(Graphics g) {
         g.setColor(Color.black);
-        g.setFont(new Font(" Ink Free ", Font.BOLD, 20));
+        g.setFont(new Font("Ink Free", Font.BOLD, 20));
         String roundNumber = "Round: " + round;
         g.drawString(roundNumber, WIDTH - 100, 30);
     }

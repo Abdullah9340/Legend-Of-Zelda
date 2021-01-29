@@ -25,8 +25,8 @@ public class Music {
 
     /*-
      * projectileNoise()
-     *  Pre: path must be a valid file path 
-     *  Post: starts projectile sound
+     * Pre: path must be a valid file path 
+     * Post: starts projectile sound
      */
     public static void projectileNoise(String path) {
         try {
