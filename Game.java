@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Game implements Runnable, KeyListener {
     // Declaring Private Variables
     private int round = 1;
+    private int kills = 0;
     private Display display;
     private boolean running = false;
     private int selectedWeapon = 1;
@@ -288,6 +289,10 @@ public class Game implements Runnable, KeyListener {
                 if (enemies.get(j).getHealth() == 0) {
                     enemies.remove(j);
                     j--;
+                    kills++;
+                    if (kills % 3 == 0) {
+                        player.setMaxHealth(player.getMaxHealth() + 1);
+                    }
                 }
             }
         }

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class Player implements KeyListener {
     // Declaring Private variables
-    private int maxHealth = 10, health = 10;
+    private int maxHealth = 4, health = 4;
     private int x = 7, y = 7;
     private int speed = 1;
     private int xVelocity = 0;
@@ -311,5 +311,15 @@ public class Player implements KeyListener {
     */
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    /*-
+    Method: setMaxHealth()
+    pre: health > 0
+    post: sets the new max health
+    
+    */
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 }
