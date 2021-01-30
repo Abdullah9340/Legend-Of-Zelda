@@ -20,7 +20,7 @@ public class Assets {
 
     public static BufferedImage[][] skeletonsprite = new BufferedImage[4][3];
 
-    public static BufferedImage menuScreen;
+    public static BufferedImage menuScreen, gameover, gamewon;
     /*-
      * Method: init() Description: Set up all image assets
      *  pre: none post: loads all
@@ -35,6 +35,8 @@ public class Assets {
 
         // Load Images
         menuScreen = ImageLoader.loadImage("Assets/mainmenu.png");
+        gameover = ImageLoader.loadImage("Assets/Gameover.png");
+        gamewon = ImageLoader.loadImage("Assets/gamewon.png");
 
         fillheart = ImageLoader.loadImage("Assets/heart.png");
         emptyheart = ImageLoader.loadImage("Assets/emptyheart.png");

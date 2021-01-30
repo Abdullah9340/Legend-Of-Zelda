@@ -166,14 +166,10 @@ public class Game implements Runnable, KeyListener {
     * Post: Displays a game over screen
     */
     public void gameOver(Graphics g) {
-        g.setColor(Color.red);
-        g.setFont(new Font("Ink Free", Font.BOLD, 75));
-        g.drawString("Game Over", WIDTH / 2 / 2, HEIGHT / 2 - 50);
-        g.setFont(new Font("Ink Free", Font.BOLD, 60));
-        g.drawString("You Died", WIDTH / 2 / 2 + 65, HEIGHT - 200);
-        String finalRound = "You have reached round: " + round;
-        g.setFont(new Font("Ink Free", Font.BOLD, 45));
-        g.drawString(finalRound, WIDTH / 2 / 2 - 90, HEIGHT - 100);
+        g.drawImage(Assets.gameover, 0, 0, null);
+        g.setColor(new Color(180, 0, 0));
+        g.setFont(new Font("Old English Text MT", Font.PLAIN, 60));
+        g.drawString(round + "", WIDTH / 2 + 150, HEIGHT - 150);
     }
 
     /*-
@@ -187,12 +183,7 @@ public class Game implements Runnable, KeyListener {
     }
 
     public void gameWin(Graphics g) {
-        g.setColor(Color.red);
-        g.setFont(new Font(" Ink Free ", Font.BOLD, 75));
-        g.drawString("YOU WON!", WIDTH / 2 / 2, HEIGHT / 2 - 50);
-        String finalRound = "You Beat The Game";
-        g.setFont(new Font("Ink Free", Font.BOLD, 45));
-        g.drawString(finalRound, WIDTH / 2 / 2, HEIGHT - 100);
+        g.drawImage(Assets.gamewon, 0, 0, 768, 576, null);
     }
 
     /*-
