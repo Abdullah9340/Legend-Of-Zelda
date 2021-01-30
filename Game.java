@@ -192,7 +192,7 @@ public class Game implements Runnable, KeyListener {
         g.drawString("YOU WON!", WIDTH / 2 / 2, HEIGHT / 2 - 50);
         String finalRound = "You Beat The Game";
         g.setFont(new Font("Ink Free", Font.BOLD, 45));
-        g.drawString(finalRound, WIDTH / 2 / 2 - 90, HEIGHT - 100);
+        g.drawString(finalRound, WIDTH / 2 / 2, HEIGHT - 100);
     }
 
     /*-
@@ -261,7 +261,7 @@ public class Game implements Runnable, KeyListener {
         g.drawImage(Assets.tree, 0, 2 * 64, 64, 64, null);
 
         g.drawImage(Assets.stone, 0, 1 * 64, 64, 64, null);
-        g.drawImage(npcStance, 0, 3 * 64, 64, 64, null);
+        g.drawImage(npcStance, 0, 3 * 64 - 15, 64, 64, null);
     }
 
     /*-
