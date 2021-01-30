@@ -239,7 +239,7 @@ public class Game implements Runnable, KeyListener {
     */
     public void drawRound(Graphics g) {
         g.setColor(Color.black);
-        g.setFont(new Font("Ink Free", Font.BOLD, 20));
+        g.setFont(new Font("BitMap", Font.BOLD, 20));
         String roundNumber = "Round: " + round;
         g.drawString(roundNumber, WIDTH - 100, 30);
     }
