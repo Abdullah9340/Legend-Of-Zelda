@@ -292,7 +292,7 @@ public class Game implements Runnable, KeyListener {
                     enemies.remove(j);
                     j--;
                     kills++;
-                    if (kills % 3 == 0 && player.getMaxHealth() <= 10) {
+                    if (kills % 3 == 0 && player.getMaxHealth() < 10) {
                         player.setMaxHealth(player.getMaxHealth() + 1);
                     }
                 }
