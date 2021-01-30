@@ -166,10 +166,10 @@ public class Game implements Runnable, KeyListener {
     * Post: Displays a game over screen
     */
     public void gameOver(Graphics g) {
-        g.drawImage(Assets.gameover, 0, 0, null);
+        g.drawImage(Assets.gameover, 0, 0, 768, 576, null);
         g.setColor(new Color(180, 0, 0));
         g.setFont(new Font("Old English Text MT", Font.PLAIN, 60));
-        g.drawString(round + "", WIDTH / 2 + 150, HEIGHT - 150);
+        g.drawString(round + "", WIDTH / 2 + 210, HEIGHT - 90);
     }
 
     /*-
