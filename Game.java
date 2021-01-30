@@ -15,7 +15,9 @@ public class Game implements Runnable, KeyListener {
     private boolean running = false;
     private int selectedWeapon = 1;
     private boolean won = false;
-
+    private boolean isMenu = true;
+    private double timePerTick, delta;
+    long now, lastTime;
     // Variables for graphics objects
     private Graphics g;
     private BufferStrategy bs;
@@ -290,7 +292,7 @@ public class Game implements Runnable, KeyListener {
                     enemies.remove(j);
                     j--;
                     kills++;
-                    if (kills % 3 == 0) {
+                    if (kills % 3 == 0 && player.getHealth() <= 10) {
                         player.setMaxHealth(player.getMaxHealth() + 1);
                     }
                 }
@@ -379,6 +381,22 @@ public class Game implements Runnable, KeyListener {
         }
     }
 
+    public void menuRender() {
+        // Set up the graphic objects
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null) { // Create a buffer strategy
+            display.getCanvas().createBufferStrategy(3);
+            return;
+        }
+        g = bs.getDrawGraphics();
+        g.clearRect(0, 0, WIDTH, HEIGHT); // Clear the background
+        // Draw
+        g.drawImage(Assets.menuScreen, 0, 0, WIDTH, HEIGHT, null);
+        // End Draw
+        bs.show();
+        g.dispose();
+    }
+
     /*-
     * run()
     * Description: Method contains the game loop
@@ -392,23 +410,22 @@ public class Game implements Runnable, KeyListener {
         init();
 
         // Create constant framerate
-        double timePerTick = 1000000000 / FPS;
-        double delta = 0;
-        long now;
-        long lastTime = System.nanoTime();
 
         while (running) {
-            now = System.nanoTime();
-            delta += (now - lastTime) / timePerTick;
-            lastTime = now;
+            if (isMenu) {
+                menuRender();
+            } else {
+                now = System.nanoTime();
+                delta += (now - lastTime) / timePerTick;
+                lastTime = now;
 
-            // Main game loop
-            if (delta >= 1) {
-                update();
-                render();
-                delta--;
+                // Main game loop
+                if (delta >= 1) {
+                    update();
+                    render();
+                    delta--;
+                }
             }
-
         }
     }
 
@@ -452,53 +469,60 @@ public class Game implements Runnable, KeyListener {
      * gets shot
      */
     public void keyTyped(KeyEvent e) {
-        // user presses q to shoot a projectile
-        if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
-            if (projectiles.size() < player.getMaxArrows()) {
-                // user selects the weapon
-                // if user selects 1
-                // inventory slot weapon 1 is used
-                if (selectedWeapon == 1) {
-                    projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan,
-                            Assets.rasegan, 32, 32, 32, 32));
-                    // if user selects 2
-                    // inventory slot weapon 2 is used
-                } else if (selectedWeapon == 2) {
-                    projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
-                            Assets.knifeleft, 16, 32, 32, 16));
-                    // if user selects 3
-                    // inventory slot weapon 3 is used
-                } else if (selectedWeapon == 3) {
-                    projectiles.add(new Projectiles(player, Assets.bullet, Assets.bullet, Assets.bullet, Assets.bullet,
-                            32, 32, 32, 32));
-                    // if user selects 4
-                    // inventory slot weapon 4 is used
-                } else if (selectedWeapon == 4) {
-                    projectiles.add(new Projectiles(player, Assets.arrowup, Assets.arrowdown, Assets.arrowright,
-                            Assets.arrowleft, 16, 32, 32, 16));
-                    // if user selects 5
-                    // inventory slot weapon 5 is used
-                } else if (selectedWeapon == 5) {
-                    projectiles.add(new Projectiles(player, Assets.spearup, Assets.speardown, Assets.spearright,
-                            Assets.spearleft, 32, 32, 32, 32));
+        if (isMenu) {
+            isMenu = false;
+            timePerTick = 1000000000 / FPS;
+            delta = 0;
+            lastTime = System.nanoTime();
+        } else {
+            // user presses q to shoot a projectile
+            if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
+                if (projectiles.size() < player.getMaxArrows()) {
+                    // user selects the weapon
+                    // if user selects 1
+                    // inventory slot weapon 1 is used
+                    if (selectedWeapon == 1) {
+                        projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan,
+                                Assets.rasegan, 32, 32, 32, 32));
+                        // if user selects 2
+                        // inventory slot weapon 2 is used
+                    } else if (selectedWeapon == 2) {
+                        projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
+                                Assets.knifeleft, 16, 32, 32, 16));
+                        // if user selects 3
+                        // inventory slot weapon 3 is used
+                    } else if (selectedWeapon == 3) {
+                        projectiles.add(new Projectiles(player, Assets.bullet, Assets.bullet, Assets.bullet,
+                                Assets.bullet, 32, 32, 32, 32));
+                        // if user selects 4
+                        // inventory slot weapon 4 is used
+                    } else if (selectedWeapon == 4) {
+                        projectiles.add(new Projectiles(player, Assets.arrowup, Assets.arrowdown, Assets.arrowright,
+                                Assets.arrowleft, 16, 32, 32, 16));
+                        // if user selects 5
+                        // inventory slot weapon 5 is used
+                    } else if (selectedWeapon == 5) {
+                        projectiles.add(new Projectiles(player, Assets.spearup, Assets.speardown, Assets.spearright,
+                                Assets.spearleft, 32, 32, 32, 32));
+                    }
                 }
             }
-        }
 
-        // user selects the weapon of choice
-        // each choice correlates with the inventory slot number
-        // value of "selected Weapon" is then used to
-        // identify which weapon is being used
-        if (e.getKeyChar() == '1') {
-            selectedWeapon = 1;
-        } else if (e.getKeyChar() == '2') {
-            selectedWeapon = 2;
-        } else if (e.getKeyChar() == '3') {
-            selectedWeapon = 3;
-        } else if (e.getKeyChar() == '4') {
-            selectedWeapon = 4;
-        } else if (e.getKeyChar() == '5') {
-            selectedWeapon = 5;
+            // user selects the weapon of choice
+            // each choice correlates with the inventory slot number
+            // value of "selected Weapon" is then used to
+            // identify which weapon is being used
+            if (e.getKeyChar() == '1') {
+                selectedWeapon = 1;
+            } else if (e.getKeyChar() == '2') {
+                selectedWeapon = 2;
+            } else if (e.getKeyChar() == '3') {
+                selectedWeapon = 3;
+            } else if (e.getKeyChar() == '4') {
+                selectedWeapon = 4;
+            } else if (e.getKeyChar() == '5') {
+                selectedWeapon = 5;
+            }
         }
 
     }
@@ -511,17 +535,19 @@ public class Game implements Runnable, KeyListener {
     * Their health bar is regenerated
     */
     public void keyPressed(KeyEvent e) {
-        // user presses enter to interact with the NPC
-        // if enter is pressed, user regenerates health bar to full
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (player.getX() == 1 && player.getY() == 3 && player.getDirection() == 'a') {
-                player.setHealth(player.getMaxHealth());
-                // depending on the direction that the player approaches the enemy from
-                // the enemy faces towards the player
-                npcStance = Assets.npcright;
-            } else if (player.getX() == 0 && player.getY() == 4 && player.getDirection() == 'w') {
-                player.setHealth(player.getMaxHealth());
-                npcStance = Assets.npcdown;
+        if (!isMenu) {
+            // user presses enter to interact with the NPC
+            // if enter is pressed, user regenerates health bar to full
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (player.getX() == 1 && player.getY() == 3 && player.getDirection() == 'a') {
+                    player.setHealth(player.getMaxHealth());
+                    // depending on the direction that the player approaches the enemy from
+                    // the enemy faces towards the player
+                    npcStance = Assets.npcright;
+                } else if (player.getX() == 0 && player.getY() == 4 && player.getDirection() == 'w') {
+                    player.setHealth(player.getMaxHealth());
+                    npcStance = Assets.npcdown;
+                }
             }
         }
     }

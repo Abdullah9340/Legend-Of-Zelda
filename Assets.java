@@ -1,4 +1,5 @@
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 
 public class Assets {
 
@@ -20,6 +21,7 @@ public class Assets {
 
     public static BufferedImage[][] skeletonsprite = new BufferedImage[4][3];
 
+    public static BufferedImage menuScreen;
     /*-
      * Method: init() Description: Set up all image assets
      *  pre: none post: loads all
@@ -33,6 +35,8 @@ public class Assets {
         SpriteSheet darksoilder = new SpriteSheet(ImageLoader.loadImage("Assets/darksoilder.png"));
 
         // Load Images
+        menuScreen = ImageLoader.loadImage("Assets/mainmenu.png");
+
         fillheart = ImageLoader.loadImage("Assets/heart.png");
         emptyheart = ImageLoader.loadImage("Assets/emptyheart.png");
 
