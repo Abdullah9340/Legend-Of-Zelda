@@ -239,7 +239,7 @@ public class Game implements Runnable, KeyListener {
     */
     public void drawRound(Graphics g) {
         g.setColor(Color.black);
-        g.setFont(new Font("BitMap", Font.BOLD, 20));
+        g.setFont(new Font("Ink Free", Font.BOLD, 20));
         String roundNumber = "Round: " + round;
         g.drawString(roundNumber, WIDTH - 100, 30);
     }
@@ -484,26 +484,31 @@ public class Game implements Runnable, KeyListener {
                     if (selectedWeapon == 1) {
                         projectiles.add(new Projectiles(player, Assets.rasegan, Assets.rasegan, Assets.rasegan,
                                 Assets.rasegan, 32, 32, 32, 32));
+                        Music.projectileNoise("Assets/projectile_noise.wav");
                         // if user selects 2
                         // inventory slot weapon 2 is used
                     } else if (selectedWeapon == 2) {
                         projectiles.add(new Projectiles(player, Assets.knifeup, Assets.knifedown, Assets.kniferight,
                                 Assets.knifeleft, 16, 32, 32, 16));
+                        Music.projectileNoise("Assets/projectile_noise.wav");
                         // if user selects 3
                         // inventory slot weapon 3 is used
                     } else if (selectedWeapon == 3) {
                         projectiles.add(new Projectiles(player, Assets.bullet, Assets.bullet, Assets.bullet,
                                 Assets.bullet, 32, 32, 32, 32));
+                        Music.projectileNoise("Assets/projectile_noise.wav");
                         // if user selects 4
                         // inventory slot weapon 4 is used
                     } else if (selectedWeapon == 4) {
                         projectiles.add(new Projectiles(player, Assets.arrowup, Assets.arrowdown, Assets.arrowright,
                                 Assets.arrowleft, 16, 32, 32, 16));
+                        Music.projectileNoise("Assets/projectile_noise.wav");
                         // if user selects 5
                         // inventory slot weapon 5 is used
                     } else if (selectedWeapon == 5) {
                         projectiles.add(new Projectiles(player, Assets.spearup, Assets.speardown, Assets.spearright,
                                 Assets.spearleft, 32, 32, 32, 32));
+                        Music.projectileNoise("Assets/projectile_noise.wav");
                     }
                 }
             }
