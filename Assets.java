@@ -64,7 +64,7 @@ public class Assets {
         knifeup = ImageLoader.loadImage("Assets/knifeup.png");
         knifeangle = ImageLoader.loadImage("Assets/knifeangle.png");
 
-        grass = sheet.crop(0, height * 3, width, height);
+        grass = ImageLoader.loadImage("Assets/grass.png");
         tree = sheet.crop(0, 0, width, height);
         stone = sheet.crop(0, height, width, height);
         npcright = sheet.crop(width * 2, height * 1, width, height);
