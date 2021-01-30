@@ -261,7 +261,7 @@ public class Game implements Runnable, KeyListener {
         g.drawImage(Assets.tree, 0, 2 * 64, 64, 64, null);
 
         g.drawImage(Assets.stone, 0, 1 * 64, 64, 64, null);
-        g.drawImage(npcStance, 0, 3 * 64 - 15, 64, 64, null);
+        g.drawImage(npcStance, 10, 3 * 64, 48, 48, null);
     }
 
     /*-

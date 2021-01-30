@@ -66,8 +66,9 @@ public class Assets {
         grass = ImageLoader.loadImage("Assets/grass.png");
         tree = sheet.crop(0, 0, width, height);
         stone = sheet.crop(0, height, width, height);
-        npcright = sheet.crop(width * 2, height * 1, width, height);
-        npcdown = sheet.crop(width * 2, 0, width, height);
+
+        npcright = players.crop(1 * 32, 32 * 2, 32, 32);
+        npcdown = players.crop(1 * 32, 0, 32, 32);
 
         darksoildersprite[0][0] = darksoilder.crop(0, 0, 48, 64);
         darksoildersprite[0][1] = darksoilder.crop(1 * 60, 0, 60, 64);
