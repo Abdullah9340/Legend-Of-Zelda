@@ -12,10 +12,12 @@ public class Game implements Runnable, KeyListener {
     private int round = 1;
     private int kills = 0;
     private Display display;
-    private boolean running = false;
+    private boolean running = false; // Is the program running
     private int selectedWeapon = 1;
-    private boolean won = false;
-    private boolean isMenu = true;
+    private boolean won = false; // Has the player won
+    private boolean isMenu = true; // Is the player in the menu state
+
+    // Variables for framerate
     private double timePerTick, delta;
     long now, lastTime;
     // Variables for graphics objects
@@ -125,12 +127,12 @@ public class Game implements Runnable, KeyListener {
             // then spawns 1 extra per round
             if (enemies.size() == 0) {
                 if (roundAm == 300) {
-                    round++;
+                    round++; // Start the next round
                     if (round == 11) {
-                        won = true;
+                        won = true; // If player hits round 11, they won
                     }
                     for (int i = 0; i < round; i++) {
-                        enemies.add(new Enemy());
+                        enemies.add(new Enemy()); // Spawn enemies
                     }
                     roundAm = 0;
                 } else {
@@ -283,8 +285,10 @@ public class Game implements Runnable, KeyListener {
                     enemies.remove(j);
                     j--;
                     kills++;
+                    // Every 3 kills increase player max health
                     if (kills % 3 == 0 && player.getMaxHealth() < 10) {
                         player.setMaxHealth(player.getMaxHealth() + 1);
+                        player.setHealth(player.getHealth() + 1);
                     }
                 }
             }
@@ -382,7 +386,7 @@ public class Game implements Runnable, KeyListener {
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT); // Clear the background
         // Draw
-        g.drawImage(Assets.menuScreen, 0, 0, WIDTH, HEIGHT, null);
+        g.drawImage(Assets.menuScreen, 0, 0, WIDTH, HEIGHT, null); // Draw the menu image
         // End Draw
         bs.show();
         g.dispose();
@@ -403,6 +407,7 @@ public class Game implements Runnable, KeyListener {
         // Create constant framerate
 
         while (running) {
+            // If the player is in the menu state
             if (isMenu) {
                 menuRender();
             } else {

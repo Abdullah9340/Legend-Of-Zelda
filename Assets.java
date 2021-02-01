@@ -22,9 +22,10 @@ public class Assets {
 
     public static BufferedImage menuScreen, gameover, gamewon;
     /*-
-     * Method: init() Description: Set up all image assets
-     *  pre: none post: loads all
-     * images into variables
+     * Method: init() 
+     * Description: Set up all image assets
+     * pre: none 
+     * post: loads all images into variables
      */
 
     public static void init() {
@@ -72,6 +73,7 @@ public class Assets {
         npcright = players.crop(1 * 32, 32 * 2, 32, 32);
         npcdown = players.crop(1 * 32, 0, 32, 32);
 
+        // Enemy sprites
         darksoildersprite[0][0] = darksoilder.crop(0, 0, 48, 64);
         darksoildersprite[0][1] = darksoilder.crop(1 * 60, 0, 60, 64);
         darksoildersprite[0][2] = darksoilder.crop(2 * 60, 0, 60, 64);
@@ -96,6 +98,7 @@ public class Assets {
         darksoildersprite[3][3] = darksoilder.crop(3 * 60, 64 * 3, 60, 64);
         darksoildersprite[3][4] = darksoilder.crop(4 * 60, 64 * 3, 76, 64);
 
+        // Main player sprite
         player[0][0] = players.crop(4 * 32, 0, 32, 32);
         player[0][1] = players.crop(5 * 32, 0, 32, 32);
         player[0][2] = players.crop(3 * 32, 0, 32, 32);
