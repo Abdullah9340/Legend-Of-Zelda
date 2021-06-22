@@ -29,7 +29,7 @@ public class Display {
         canvas.setFocusable(false); // Make the canvas not focusable so event listener works better
 
         frame.add(canvas);
-        frame.pack(); // Make the frame only hold the canvas fully
+        frame.pack(); // Make the frame hold the canvas fully
         frame.setVisible(true);
     }
 

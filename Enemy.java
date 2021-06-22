@@ -23,10 +23,10 @@ public class Enemy {
 
     public Enemy() {
         int position = (int) (Math.random() * 2);
-        if (position == 0) {
+        if (position == 0) { // If the random number is 0, spawn it from the top of the screen
             y = 0;
             x = (int) (Math.random() * LegendOfZelda.WIDTH / 64);
-        } else {
+        } else { // Otherwise spawn it from the right side
             x = LegendOfZelda.WIDTH / 64 + 1;
             y = (int) (Math.random() * LegendOfZelda.HEIGHT / 64);
         }
@@ -38,10 +38,10 @@ public class Enemy {
         post: Moves the enemy towards the player
     */
     public void update(Player player) {
-        if (amTime > timeAm) {
-            calculateNextMove(player);
+        if (amTime > timeAm) { // If enough frames has passed move the enemy
+            calculateNextMove(player); // Find the best tile for the enemy to move towards the player
             move();
-            amTime = 0;
+            amTime = 0; // Reset the move time
         } else {
             amTime++;
         }
@@ -123,7 +123,7 @@ public class Enemy {
             yVelocity = 0;
             xVelocity = -1;
             direction = 'a';
-        } else {
+        } else { // Default for the enemy staying still
             yVelocity = 0;
             xVelocity = 0;
         }
@@ -134,13 +134,14 @@ public class Enemy {
      * creates a border for the enemy
      */
     public void move() {
-        y += yVelocity;
+        y += yVelocity; // Move enemy by y velocity
         if (y >= LegendOfZelda.HEIGHT / 64 - 1) {
-            y = LegendOfZelda.HEIGHT / 64 - 1;
+            y = LegendOfZelda.HEIGHT / 64 - 1; // If enemy tries to go past screen stop it
         } else if (y <= 0) {
             y = 0;
         }
-        x += xVelocity;
+        x += xVelocity; // Move enemy by x velocity
+        // If enemy tries to move past x border stop it
         if (x >= LegendOfZelda.WIDTH / 64 - 1) {
             x = LegendOfZelda.WIDTH / 64 - 1;
         } else if (x <= 0) {

@@ -9,7 +9,7 @@ public class Projectiles {
     private int amTime = 0, timeAm = 3; // Time per frame for projectile to move
     private char direction; // Direction of projectile
 
-    private int vXSize, vYSize, hXSize, hYSize;
+    private int vXSize, vYSize, hXSize, hYSize; // Size for image sprite
 
     private BufferedImage up, down, right, left; // Images for each sprite
 
@@ -22,14 +22,15 @@ public class Projectiles {
     public Projectiles(Player player, BufferedImage up, BufferedImage down, BufferedImage right, BufferedImage left,
             int vXSize, int vYSize, int hXSize, int hYSize) {
 
+        // Assign the drawing size and direction to help with rendering and movement
         this.vXSize = vXSize;
         this.vYSize = vYSize;
         this.hXSize = hXSize;
         this.hYSize = hYSize;
-        this.up = up;
-        this.down = down;
-        this.left = left;
-        this.right = right;
+        this.up = up; // The sprite for when its looking up
+        this.down = down; // Sprite for looking down
+        this.left = left; // Sprite for left
+        this.right = right; // Sprite for right
         if (player.getDirection() == 'w') {
             yVelocity = -1;
             xVelocity = 0;
@@ -44,7 +45,7 @@ public class Projectiles {
             xVelocity = 1;
         }
         direction = player.getDirection();
-        x = player.getX();
+        x = player.getX(); // Get player x and y and set as projectile x and y
         y = player.getY();
 
     }
@@ -55,7 +56,7 @@ public class Projectiles {
         post: updates and moves the projectile
     */
     public void update() {
-        if (amTime > timeAm) {
+        if (amTime > timeAm) { // If enough frames has passed, move the projectile
             move();
             amTime = 0;
         } else {

@@ -37,8 +37,8 @@ public class Player implements KeyListener {
     public void render(Graphics g, int selectedWeapon) {
         // Rendering the animation time for the player
         // movements
-        int renderAm = 0;
-        if (moving) {
+        int renderAm = 0; // Standstill animation
+        if (moving) { // If the player is moving change the animation to render
             if (amTime == 0) {
                 renderAm = 0;
             } else if (amTime <= 6) {
@@ -61,7 +61,7 @@ public class Player implements KeyListener {
         }
 
         // Render health
-        if (health < 0) {
+        if (health < 0) { // To prevent bugs
             health = 0;
         }
 
@@ -89,7 +89,7 @@ public class Player implements KeyListener {
     * Post: shows that the player moves across the screen
     */
     public void update() {
-        if (amTime > timeAm) {
+        if (amTime > timeAm) { // If enough frames have passed, move the player
             move();
             amTime = 0;
         } else {

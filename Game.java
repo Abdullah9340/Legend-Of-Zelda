@@ -10,10 +10,10 @@ import java.util.ArrayList;
 public class Game implements Runnable, KeyListener {
     // Declaring Private Variables
     private int round = 1;
-    private int kills = 0;
+    private int kills = 0; // Number of kills the player has
     private Display display;
     private boolean running = false; // Is the program running
-    private int selectedWeapon = 1;
+    private int selectedWeapon = 1; // The weapon that is currently selected
     private boolean won = false; // Has the player won
     private boolean isMenu = true; // Is the player in the menu state
 
@@ -58,7 +58,7 @@ public class Game implements Runnable, KeyListener {
         this.title = title;
         this.WIDTH = width;
         this.HEIGHT = height;
-        this.start();
+        this.start(); // Start the thread/game
     }
 
     /*-
@@ -70,12 +70,12 @@ public class Game implements Runnable, KeyListener {
      * Post: Initializes all the variables
      */
     public void init() {
-        Music.backgroundMusic();
+        Music.backgroundMusic(); // Start the background music
         display = new Display(title, WIDTH, HEIGHT); // Set up display
         Assets.init(); // Sets up the asset images
         npcStance = Assets.npcright; // Sets the default npc stance
         player = new Player();
-        enemies = new ArrayList<Enemy>();
+        enemies = new ArrayList<Enemy>(); // Create arraylist of enemies
         enemies.add(new Enemy()); // Adds one enemmy to start
         projectiles = new ArrayList<Projectiles>();
         display.getJFrame().addKeyListener(player); // Set up keylisteners
@@ -116,7 +116,7 @@ public class Game implements Runnable, KeyListener {
     * update the controls within the game
     */
     public void update() {
-        if (won) {
+        if (won) { // If the player has won the game, nothing to update
 
         } else if (!isDead) { // Only run if the player is not dead
             player.update(); // Update the player
@@ -145,7 +145,7 @@ public class Game implements Runnable, KeyListener {
                 if (projectiles.size() == 0) { // Helps to fix bug
                     break;
                 }
-                projectiles.get(i).update();
+                projectiles.get(i).update(); // Update each projectile (Move it)
                 // If projectile goes off the screen, remove it
                 if (projectiles.get(i).getX() > WIDTH / 64 || projectiles.get(i).getX() < -1) {
                     projectiles.remove(i);
@@ -203,7 +203,7 @@ public class Game implements Runnable, KeyListener {
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT); // Clear the background
         // Draw
-        if (won) {
+        if (won) { // If the player has won, draw the game won screen
             backGroundGO(g);
             gameWin(g);
         } else if (!isDead) { // If the player is not dead
@@ -268,6 +268,7 @@ public class Game implements Runnable, KeyListener {
     * run through any background objects
     */
     public void checkCollision() {
+        // Loop through every projectile and enemy to check for collision
         for (int i = projectiles.size() - 1; i >= 0; i--) {
             for (int j = enemies.size() - 1; j >= 0; j--) {
                 if (projectiles.size() != 0) {
@@ -276,15 +277,16 @@ public class Game implements Runnable, KeyListener {
                     // health
                     if (projectiles.get(i).getX() == enemies.get(j).getX()
                             && projectiles.get(i).getY() == enemies.get(j).getY()) {
-                        projectiles.remove(i);
+                        projectiles.remove(i); // If the projectile hits the enemy, remove the projectile
+                        // If the enemy gets hit, decrease its health
                         enemies.get(j).setHealth(enemies.get(j).getHealth() - 1);
                     }
                 }
                 // If enemey health is 0, remove it
                 if (enemies.get(j).getHealth() == 0) {
                     enemies.remove(j);
-                    j--;
-                    kills++;
+                    j--; // To prevent out of bounds exception
+                    kills++; // Update player kills
                     // Every 3 kills increase player max health
                     if (kills % 3 == 0 && player.getMaxHealth() < 10) {
                         player.setMaxHealth(player.getMaxHealth() + 1);
@@ -317,7 +319,7 @@ public class Game implements Runnable, KeyListener {
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = i + 1; j < enemies.size(); j++) {
                 if (enemies.get(i).getX() == enemies.get(j).getX() && enemies.get(i).getY() == enemies.get(j).getY()) {
-                    setEnemyCoord(enemies.get(i));
+                    setEnemyCoord(enemies.get(i)); // Move the enemy back 1 block
                 }
             }
         }
@@ -405,12 +407,12 @@ public class Game implements Runnable, KeyListener {
         init();
 
         // Create constant framerate
-
+        // Main game loop
         while (running) {
             // If the player is in the menu state
             if (isMenu) {
                 menuRender();
-            } else {
+            } else { // If the player is has started the game
                 now = System.nanoTime();
                 delta += (now - lastTime) / timePerTick;
                 lastTime = now;
@@ -438,7 +440,7 @@ public class Game implements Runnable, KeyListener {
         }
         running = true;
         thread = new Thread(this);
-        thread.start();
+        thread.start(); // Start the thread
     }
 
     /*-
@@ -446,7 +448,7 @@ public class Game implements Runnable, KeyListener {
     * Pre: None
     * Post: Starts the game thread 
     */
-    public void stop() {
+    public void stop() { // Stop the thread
         if (!running) {
             return;
         }
